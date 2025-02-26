@@ -1,16 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { TopicService } from '../../services/topic.service';
+import {Topic} from "../../model/topic";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  topics: Topic[] = []; // Stocke les thèmes récupérés
 
-  ngOnInit(): void {}
+  constructor(private topicService: TopicService) {}
 
-  start() {
-    alert('Commencez par lire le README et à vous de jouer !');
+  ngOnInit(): void {
+    this.loadTopics();
+  }
+
+  loadTopics(): void {
+    console.log('Hello world');
+    this.topicService.getTopics().subscribe({
+      next: (data) => this.topics = data,
+      error: (err) => console.error('Erreur lors du chargement des topics', err)
+    });
   }
 }
