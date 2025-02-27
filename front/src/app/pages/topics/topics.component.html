@@ -1,0 +1,14 @@
+<app-nav-bar></app-nav-bar>
+<div class="container d-flex flex-column align-items-center justify-content-center mt-5 text-center">
+  <div class="container">
+    <h2>Liste des Thèmes</h2>
+    <div class="topics-grid">
+      <div *ngFor="let topic of topics" class="topic-card">
+        <h3>{{ topic.name }}</h3>
+        <p>Description : {{ topic.description }}</p>
+        <button class="subscribe-btn" routerLink="/topic">S’abonner</button>
+      </div>
+    </div>
+  </div>
+</div>
+

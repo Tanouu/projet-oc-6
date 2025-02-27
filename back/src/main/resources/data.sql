@@ -21,14 +21,14 @@ INSERT INTO topics (name, description) VALUES
     ON CONFLICT (name) DO NOTHING;
 
 -- Insérer des posts (évite les doublons sans `ON CONFLICT`)
-INSERT INTO posts (title, content, user_id)
-SELECT 'Premier post', 'Bienvenue sur MDD !', 1
+INSERT INTO posts (title, content, user_id, topic_id, created_at)
+SELECT 'Premier post', 'Bienvenue sur MDD !', 1, 1, NOW()
     WHERE NOT EXISTS (
     SELECT 1 FROM posts WHERE title = 'Premier post'
 );
 
-INSERT INTO posts (title, content, user_id)
-SELECT 'Angular vs React', 'Comparons ces deux frameworks.', 2
+INSERT INTO posts (title, content, user_id, topic_id, created_at)
+SELECT 'Angular vs React', 'Comparons ces deux frameworks.', 2, 1, NOW()
     WHERE NOT EXISTS (
     SELECT 1 FROM posts WHERE title = 'Angular vs React'
 );

@@ -2,10 +2,9 @@ package com.openclassrooms.mddapi.controller;
 import com.openclassrooms.mddapi.dto.JwtResponseDto;
 import com.openclassrooms.mddapi.dto.LoginDto;
 import com.openclassrooms.mddapi.dto.RegisterDto;
-import com.openclassrooms.mddapi.dto.UserDto;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.security.JwtGenerator;
-import com.openclassrooms.mddapi.service.UserService;
+import com.openclassrooms.mddapi.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +17,14 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/auth")
-public class UserController {
+public class AuthController {
 
-  private final UserService userService;
+  private final AuthService userService;
   private final PasswordEncoder passwordEncoder;
   private final JwtGenerator jwtGenerator;
 
   @Autowired
-  public UserController(UserService userService, PasswordEncoder passwordEncoder, JwtGenerator jwtUtil) {
+  public AuthController(AuthService userService, PasswordEncoder passwordEncoder, JwtGenerator jwtUtil) {
     this.userService = userService;
     this.passwordEncoder = passwordEncoder;
     this.jwtGenerator = jwtUtil;
@@ -55,18 +54,6 @@ public class UserController {
     final String jwt = jwtGenerator.generateToken(authentication);
 
     return ResponseEntity.ok(new JwtResponseDto(jwt));
-  }
-
-
-  @GetMapping("/me")
-  public ResponseEntity<UserDto> getUserProfile(Authentication authentication) {
-    if (authentication == null) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-    }
-    String email = authentication.getName();
-
-    UserDto userDto = userService.getUserDto(userService.findUserByEmail(email));
-    return ResponseEntity.ok(userDto);
   }
 
 }

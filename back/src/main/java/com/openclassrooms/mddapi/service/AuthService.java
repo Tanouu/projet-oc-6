@@ -2,12 +2,11 @@ package com.openclassrooms.mddapi.service;
 
 
 import com.openclassrooms.mddapi.dto.RegisterDto;
-import com.openclassrooms.mddapi.dto.UserDto;
 import com.openclassrooms.mddapi.model.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
-public interface UserService {
+public interface AuthService {
+    UserDetails loadUserByUsername(String email);
     User registerNewUser(RegisterDto registerDto);
     User findUserByEmail(String email);
-    UserDto getUserDto(User user);
-
 }

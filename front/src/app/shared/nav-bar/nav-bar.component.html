@@ -1,0 +1,40 @@
+<nav *ngIf="isLogged$ | async; else guestNavbar" class="navbar navbar-expand-md navbar-light bg-white shadow-sm p-3 fs-4 border border-dark">
+  <div class="container-fluid">
+    <!-- Logo -->
+    <a class="navbar-brand" href="#">
+      <img src="/assets/logo_p6.png" alt="logo" class="img-fluid" style="max-height: 100px; width: auto;">
+    </a>
+
+    <!-- Mobile Menu Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Links -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'purple': isActive('/articles'), 'text-secondary': !isActive('/articles')}" routerLink="/articles">Articles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{'purple': isActive('/topics'), 'text-secondary': !isActive('/topics')}" routerLink="/topics">Thèmes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <img src="/assets/default-user.png" alt="User" class="rounded-circle" width="50" height="50">
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<ng-template #guestNavbar>
+  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm p-3 fs-4 border border-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/assets/logo_p6.png" alt="logo" class="img-fluid" style="max-height: 100px; width: auto;">
+      </a>
+    </div>
+  </nav>
+</ng-template>

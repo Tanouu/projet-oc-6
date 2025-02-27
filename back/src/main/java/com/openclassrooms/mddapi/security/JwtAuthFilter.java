@@ -1,7 +1,7 @@
 package com.openclassrooms.mddapi.security;
 
 
-import com.openclassrooms.mddapi.service.UserDetailsService;
+import com.openclassrooms.mddapi.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,7 +22,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private JwtGenerator tokenGenerator;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private AuthService authService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -32,7 +32,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (StringUtils.hasText(token) && tokenGenerator.validateToken(token)) {
             String username = tokenGenerator.getUsernameFromJWT(token);
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = authService.loadUserByUsername(username);
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -1,0 +1,26 @@
+<app-nav-bar></app-nav-bar>
+<div class="container d-flex flex-column align-items-center justify-content-center mt-5 text-center">
+  <!-- Bouton retour -->
+  <div class="w-100 d-flex justify-content-start">
+    <button class="btn" onclick="history.back()">
+     <h1>←</h1>
+    </button>
+  </div>
+
+  <!-- Formulaire -->
+  <div class="w-100" style="max-width: 350px;">
+    <h1 class="mb-3">Se connecter</h1>
+
+    <form (submit)="onSubmit()">
+      <div class="mb-3 text-start">
+        <label for="email" class="form-label">E-mail ou nom d'utilisateur</label>
+        <input type="email" class="form-control" id="email" [(ngModel)]="loginRequest.email" name="email" required>
+      </div>
+      <div class="mb-3 text-start">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" id="password" [(ngModel)]="loginRequest.password" name="password" required>
+      </div>
+      <button type="submit" class="btn purple w-50 text-white">Se connecter</button>
+    </form>
+  </div>
+</div>

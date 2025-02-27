@@ -1,9 +1,9 @@
 package com.openclassrooms.mddapi.service;
 
-import com.openclassrooms.mddapi.dto.TopicDTO;
+import com.openclassrooms.mddapi.dto.TopicDto;
 import java.util.List;
 
 public interface TopicService {
-    List<TopicDTO> getAllTopics();
-    TopicDTO getTopicById(Long id);
+    List<TopicDto> getAllTopics();
+    TopicDto getTopicById(Long id);
 }

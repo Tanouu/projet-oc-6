@@ -1,6 +1,6 @@
 package com.openclassrooms.mddapi.controller;
 
-import com.openclassrooms.mddapi.dto.TopicDTO;
+import com.openclassrooms.mddapi.dto.TopicDto;
 import com.openclassrooms.mddapi.service.TopicService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +22,7 @@ public class TopicController {
      */
 
     @GetMapping
-    public ResponseEntity<List<TopicDTO>> getAllTopics() {
+    public ResponseEntity<List<TopicDto>> getAllTopics() {
         return ResponseEntity.ok(topicService.getAllTopics());
     }
 
@@ -33,8 +33,8 @@ public class TopicController {
      */
 
     @GetMapping("/{id}")
-    public ResponseEntity<TopicDTO> getTopicById(@PathVariable Long id) {
-        TopicDTO topic = topicService.getTopicById(id);
+    public ResponseEntity<TopicDto> getTopicById(@PathVariable Long id) {
+        TopicDto topic = topicService.getTopicById(id);
         if (topic == null) {
             return ResponseEntity.notFound().build();
         }

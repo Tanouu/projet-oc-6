@@ -1,14 +1,14 @@
 package com.openclassrooms.mddapi.dto;
 
-public class TopicDTO {
+public class TopicDto {
     private Long id;
     private String name;
     private String description;
 
-    public TopicDTO() {
+    public TopicDto() {
     }
 
-    public TopicDTO(Long id, String name, String description) {
+    public TopicDto(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
