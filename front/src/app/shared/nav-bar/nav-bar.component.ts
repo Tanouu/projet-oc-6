@@ -16,12 +16,13 @@ export class NavBarComponent implements OnInit {
     this.isLogged$ = this.sessionService.isLogged$();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   isActive(route: string): boolean {
     const currentUrl = this.router.url;
 
-    if (route === '/posts' && currentUrl.startsWith('/post/')) {
+    if (route === '/posts' && (currentUrl.startsWith('/post/') || currentUrl === '/create-post')) {
       return true;
     }
 
