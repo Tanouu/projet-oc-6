@@ -1,0 +1,30 @@
+<app-nav-bar></app-nav-bar>
+
+<!-- Bouton retour -->
+<div class="w-100 d-flex justify-content-start">
+  <button class="btn" (click)="goBack()">
+    <h1>←</h1>
+  </button>
+</div>
+
+<div class="container mt-5">
+  <h2 class="text-center">Créer un nouvel article</h2>
+
+  <form (ngSubmit)="submitPost()" class="d-flex flex-column gap-3">
+    <!-- Sélection du thème -->
+    <select class="form-control" [(ngModel)]="postForm.topicId" name="topic" required>
+      <option [value]=0 disabled selected>Sélectionner un thème</option>
+      <option *ngFor="let topic of topics" [value]="topic.id">{{ topic.name }}</option>
+    </select>
+
+
+    <!-- Titre -->
+    <input class="form-control" type="text" [(ngModel)]="postForm.title" name="title" placeholder="Titre de l'article" required>
+
+    <!-- Contenu -->
+    <textarea class="form-control" [(ngModel)]="postForm.content" name="content" placeholder="Contenu de l'article" rows="5" required></textarea>
+
+    <!-- Bouton de soumission -->
+    <button class="btn purple text-white w-50 mx-auto d-block" type="submit">Créer</button>
+  </form>
+</div>

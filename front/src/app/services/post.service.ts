@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Topic} from "../model/topic";
 import {Post} from "../model/post";
 import {PostDetails} from "../model/post-details";
+import {PostForm} from "../model/post-form";
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class PostService {
 
   getPostDetails(postId: number): Observable<PostDetails> {
     return this.http.post<PostDetails>(`${this.apiUrl}/details`, { postId });
+  }
+
+  createPost(post: PostForm): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/create`, post);
   }
 }
