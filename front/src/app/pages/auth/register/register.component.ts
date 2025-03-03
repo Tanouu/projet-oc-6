@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from "../../../services/auth.service";
+import {SessionService} from "../../../services/session.service";
 
 @Component({
   selector: 'app-register',
@@ -14,13 +15,16 @@ export class RegisterComponent {
     name: ''
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private sessionService: SessionService, private router: Router) {}
 
   onSubmit() {
+    localStorage.clear();
     this.authService.register(this.registerRequest).subscribe({
-      next: () => {
+      next:response => {
         console.log('Inscription réussie');
-        this.router.navigate(['/topics']); // Redirection après inscription
+        localStorage.setItem('token', response.token);
+        this.sessionService.logIn(response.user);
+        this.router.navigate(['/topics']);
       },
       error: err => {
         console.error('Erreur lors de l\'inscription', err);

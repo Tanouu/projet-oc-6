@@ -17,6 +17,7 @@ export class LoginComponent {
   constructor(private authService: AuthService,private sessionService: SessionService, private router: Router) {}
 
   onSubmit() {
+    localStorage.clear();
     this.authService.login(this.loginRequest).subscribe({
       next: response => {
         console.log('Connexion réussie', response);
