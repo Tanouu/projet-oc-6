@@ -19,6 +19,12 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {}
 
   isActive(route: string): boolean {
-    return this.router.url === route;
+    const currentUrl = this.router.url;
+
+    if (route === '/posts' && currentUrl.startsWith('/post/')) {
+      return true;
+    }
+
+    return currentUrl === route;
   }
 }
