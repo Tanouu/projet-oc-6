@@ -3,15 +3,15 @@ package com.openclassrooms.mddapi.dto;
 public class CommentDto {
     private Long id;
     private String content;
-    private UserDto user;
+    private String userName;
 
     public CommentDto() {
     }
 
-    public CommentDto(Long id, String content, UserDto user) {
+    public CommentDto(Long id, String content, String userName) {
         this.id = id;
         this.content = content;
-        this.user = user;
+        this.userName = userName;
     }
 
     public Long getId() {
@@ -30,11 +30,11 @@ public class CommentDto {
         this.content = content;
     }
 
-    public UserDto getUser() {
-        return user;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUser(UserDto user) {
-        this.user = user;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
