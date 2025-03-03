@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.model;
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "comments")
@@ -20,6 +21,15 @@ public class Comment {
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
+    @Temporal(TemporalType.TIMESTAMP) // ✅ Stocke la date au format timestamp
+    @Column(nullable = false, updatable = false) // ✅ Ne peut pas être mis à jour
+    private Date createdAt;
+
+    /** 🔥 Initialise automatiquement `createdAt` avant insertion */
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
 
     public Long getId() {
         return id;

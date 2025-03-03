@@ -34,14 +34,14 @@ SELECT 'Angular vs React', 'Comparons ces deux frameworks.', 2, 1, NOW()
 );
 
 -- Insérer des commentaires (évite les doublons sur le contenu)
-INSERT INTO comments (content, user_id, post_id)
-SELECT 'Super article !', 2, 1
+INSERT INTO comments (content, user_id, post_id, created_at)
+SELECT 'Super article !', 2, 1, NOW()
     WHERE NOT EXISTS (
     SELECT 1 FROM comments WHERE content = 'Super article !'
 );
 
-INSERT INTO comments (content, user_id, post_id)
-SELECT 'Je préfère Angular', 1, 2
+INSERT INTO comments (content, user_id, post_id, created_at)
+SELECT 'Je préfère Angular', 1, 2, NOW()
     WHERE NOT EXISTS (
     SELECT 1 FROM comments WHERE content = 'Je préfère Angular'
 );
