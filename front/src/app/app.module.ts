@@ -12,9 +12,11 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import {FormsModule} from "@angular/forms";
 import {JwtInterceptor} from "./interceptors/jwt.interceptor";
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+import { PostsComponent } from './pages/posts/posts.component';
+import { PostDetailsComponent } from './pages/posts/post-details/post-details.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, TopicsComponent, RegisterComponent, LoginComponent, NavBarComponent],
+  declarations: [AppComponent, HomeComponent, TopicsComponent, RegisterComponent, LoginComponent, NavBarComponent, PostsComponent, PostDetailsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

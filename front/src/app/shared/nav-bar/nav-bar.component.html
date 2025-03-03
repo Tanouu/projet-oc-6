@@ -5,29 +5,47 @@
       <img src="/assets/logo_p6.png" alt="logo" class="img-fluid" style="max-height: 100px; width: auto;">
     </a>
 
-    <!-- Mobile Menu Button -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Desktop Menu (Visible uniquement sur grand écran) -->
+    <div class="d-none d-md-flex ms-auto align-items-center">
+      <a class="nav-link fs-4 fw-bold me-3" [ngClass]="{'purple': isActive('/posts'), 'text-secondary': !isActive('/posts')}" routerLink="/posts">Articles</a>
+      <a class="nav-link fs-4 fw-bold me-3" [ngClass]="{'purple': isActive('/topics'), 'text-secondary': !isActive('/topics')}" routerLink="/topics">Thèmes</a>
+      <a class="nav-link" href="#">
+        <img src="/assets/default-user.png" alt="User" class="rounded-circle border border-secondary" width="50" height="50">
+      </a>
+    </div>
+
+    <!-- Mobile Menu Button (Visible uniquement sur mobile) -->
+    <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvas" aria-controls="navbarOffcanvas" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
-    <!-- Navbar Links -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" [ngClass]="{'purple': isActive('/articles'), 'text-secondary': !isActive('/articles')}" routerLink="/articles">Articles</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" [ngClass]="{'purple': isActive('/topics'), 'text-secondary': !isActive('/topics')}" routerLink="/topics">Thèmes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">
-            <img src="/assets/default-user.png" alt="User" class="rounded-circle" width="50" height="50">
-          </a>
-        </li>
-      </ul>
-    </div>
   </div>
 </nav>
+
+<!-- Offcanvas Menu (Affiché uniquement sur mobile) -->
+<div class="offcanvas offcanvas-end d-md-none" tabindex="-1" id="navbarOffcanvas" aria-labelledby="navbarOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title fs-3" id="navbarOffcanvasLabel">Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-flex flex-column justify-content-between">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link fs-4 fw-bold" [ngClass]="{'purple': isActive('/posts'), 'text-secondary': !isActive('/posts')}" routerLink="/posts">Articles</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link fs-4 fw-bold" [ngClass]="{'purple': isActive('/topics'), 'text-secondary': !isActive('/topics')}" routerLink="/topics">Thèmes</a>
+      </li>
+    </ul>
+
+    <!-- Image User en bas -->
+    <div class="mt-auto text-center">
+      <img src="/assets/default-user.png" alt="User" class="rounded-circle border border-secondary" width="60" height="60">
+      <p class="fs-5 mt-2">Mon profil</p>
+    </div>
+  </div>
+</div>
+
+
 
 <ng-template #guestNavbar>
   <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm p-3 fs-4 border border-dark">
