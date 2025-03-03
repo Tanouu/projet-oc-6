@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import {SessionService} from "../../services/session.service";
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  isLoading$: Observable<boolean>;
 
-  constructor() {}
-
-  ngOnInit(): void {
+  constructor(private sessionService: SessionService) {
+    this.isLoading$ = this.sessionService.isLoading$(); // ✅ Suivi du chargement
   }
 
+  ngOnInit(): void {}
 }

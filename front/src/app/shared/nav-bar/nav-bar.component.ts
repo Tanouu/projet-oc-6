@@ -13,7 +13,7 @@ export class NavBarComponent implements OnInit {
   isLogged$: Observable<boolean>;
 
   constructor(private sessionService: SessionService, private router: Router) {
-    this.isLogged$ = this.sessionService.$isLogged();
+    this.isLogged$ = this.sessionService.isLogged$();
   }
 
   ngOnInit(): void {}

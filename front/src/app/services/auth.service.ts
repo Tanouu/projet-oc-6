@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import {User} from "../model/user.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +27,9 @@ export class AuthService {
       })
     );
   }
+
+  public me(): Observable<User> {
+    return this.httpClient.get<User>(`${this.pathService}/me`);
+  }
+
 }

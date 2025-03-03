@@ -1,11 +1,14 @@
-<div class="container d-flex flex-column align-items-center justify-content-center vh-100 text-center">
-  <img src="/assets/logo_p6.png" alt="logo" class="img-fluid mb-4 logo" />
-
-  <div class="d-flex flex-column flex-md-row gap-3 w-100 justify-content-center" style="max-width: 300px;">
-    <button class="btn btn-outline-dark w-100 w-md-auto" routerLink="/login">Se connecter</button>
-    <button class="btn btn-outline-dark w-100 w-md-auto" routerLink="/register">S'inscrire</button>
-  </div>
+<div *ngIf="isLoading$ | async; else showContent" class="container d-flex flex-column align-items-center justify-content-center vh-100 text-center">
+  <p>Chargement...</p>
 </div>
 
+<ng-template #showContent>
+  <div class="container d-flex flex-column align-items-center justify-content-center vh-100 text-center">
+    <img src="/assets/logo_p6.png" alt="logo" class="img-fluid mb-4 logo" />
 
-
+    <div class="d-flex flex-column flex-md-row gap-3 w-100 justify-content-center" style="max-width: 300px;">
+      <button class="btn btn-outline-dark w-100 w-md-auto" routerLink="/login">Se connecter</button>
+      <button class="btn btn-outline-dark w-100 w-md-auto" routerLink="/register">S'inscrire</button>
+    </div>
+  </div>
+</ng-template>
