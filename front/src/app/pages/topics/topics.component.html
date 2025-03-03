@@ -1,14 +1,18 @@
 <app-nav-bar></app-nav-bar>
-<div class="container d-flex flex-column align-items-center justify-content-center mt-5 text-center">
-  <div class="container">
-    <h2>Liste des Thèmes</h2>
-    <div class="topics-grid">
-      <div *ngFor="let topic of topics" class="topic-card">
-        <h3>{{ topic.name }}</h3>
-        <p>Description : {{ topic.description }}</p>
-        <button class="subscribe-btn" routerLink="/topic">S’abonner</button>
+
+<div class="container mt-5 text-center">
+  <h2 class="mb-4">Liste des Thèmes</h2>
+
+  <!-- Grid Bootstrap -->
+  <div class="row g-4">
+    <div *ngFor="let topic of topics" class="col-12 col-sm-6 col-md-4">
+      <div class="card shadow-sm p-3">
+        <div class="card-body">
+          <h1 class="card-title">{{ topic.name }}</h1>
+          <p class="card-text text-muted">{{ topic.description }}</p>
+          <a class="btn purple text-white w-100" routerLink="/topic">S’abonner</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
-

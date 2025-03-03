@@ -12,9 +12,7 @@ export class TopicService {
   constructor(private http: HttpClient) {}
 
   getTopics(): Observable<Topic[]> {
-    const token = localStorage.getItem('jwt'); // Récupérer le token stocké
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.http.get<Topic[]>(this.apiUrl, { headers });
+    return this.http.get<Topic[]>(this.apiUrl);
   }
 }
