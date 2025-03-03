@@ -32,8 +32,9 @@ export class SessionService {
     this.user = user;
     this.isLogged = true;
     this.isLoadingSubject.next(false);
+    this.fetchUser();
     this.next();
-    this.router.navigate(['/topics']); // 🔥 Redirection après connexion
+    this.router.navigate(['/topics']); // ✅ Redirection après connexion
   }
 
   public logOut(): void {
@@ -42,7 +43,7 @@ export class SessionService {
     this.isLogged = false;
     this.isLoadingSubject.next(false);
     this.next();
-    this.router.navigate(['/login']); // 🔥 Redirection après déconnexion
+    this.router.navigate(['/login']); // ✅ Redirection après déconnexion
   }
 
   public autoLogin(): void {
@@ -63,7 +64,11 @@ export class SessionService {
         this.isLoadingSubject.next(false);
         console.log("Utilisateur chargé:", user);
         this.next();
-        this.router.navigate(['/topics']); // 🔥 Redirection après auto-login réussi
+
+        const currentUrl = this.router.url;
+        if (currentUrl === '/login' || currentUrl === '/register' || currentUrl === '/') {
+          this.router.navigate(['/topics']);
+        }
       }),
       catchError(() => {
         console.log("Erreur récupération utilisateur. Déconnexion...");
