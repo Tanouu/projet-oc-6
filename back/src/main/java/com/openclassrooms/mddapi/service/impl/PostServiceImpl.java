@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
                 post.getCreatedAt().toString(),
                 post.getUser().getName(),
                 post.getTopic().getName(),
-                commentDtos // 🔥 Inclut les commentaires ici
+                commentDtos
         );
     }
 
