@@ -1,0 +1,29 @@
+<app-nav-bar></app-nav-bar>
+<!-- Bouton retour -->
+<div class="w-100 d-flex justify-content-start">
+  <button class="btn" onclick="history.back()">
+    <h1>←</h1>
+  </button>
+</div>
+<div class="container mt-5">
+  <div *ngIf="postDetails; else loading">
+    <h1 class="text-center">{{ postDetails.title }}</h1>
+    <h2 class="text-muted text-center">
+      <strong>{{ postDetails.createdAt | date: 'dd/MM/yyyy' }} | {{ postDetails.userName }}</strong> | {{ postDetails.topicName }}
+    </h2>
+    <p>{{ postDetails.content }}</p>
+
+    <hr class="my-4 border-dark opacity-50">
+
+    <h4 class="mt-4">Commentaires</h4>
+    <ul class="list-group">
+      <li *ngFor="let comment of postDetails.comments" class="list-group-item">
+        <strong>{{ comment.userName }}</strong>: {{ comment.content }}
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #loading>
+    <p class="text-center">Chargement en cours...</p>
+  </ng-template>
+</div>
