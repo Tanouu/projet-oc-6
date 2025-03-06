@@ -10,7 +10,9 @@
         <div class="card-body">
           <h1 class="card-title">{{ topic.name }}</h1>
           <p class="card-text text-muted">{{ topic.description }}</p>
-          <a class="btn purple text-white w-100" routerLink="/topic">S’abonner</a>
+          <button class="btn purple text-white w-100" (click)="subscribeToTopic(topic.id)">
+            S’abonner
+          </button>
         </div>
       </div>
     </div>

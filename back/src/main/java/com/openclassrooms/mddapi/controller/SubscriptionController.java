@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.SubscriptionDto;
+import com.openclassrooms.mddapi.dto.SubscriptionResponseDto;
 import com.openclassrooms.mddapi.service.SubscriptionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -17,16 +18,16 @@ public class SubscriptionController {
     }
 
     @PostMapping("/subscribe")
-    public ResponseEntity<String> subscribe(@RequestBody SubscriptionDto subscriptionDto, Authentication authentication) {
+    public ResponseEntity<SubscriptionResponseDto> subscribe(@RequestBody SubscriptionDto subscriptionDto, Authentication authentication) {
         if (authentication == null || authentication.getName() == null) {
-            return ResponseEntity.status(401).build();
+            return ResponseEntity.status(401).body(new SubscriptionResponseDto("Non autorisé"));
         }
 
         try {
             subscriptionService.subscribeToTopic(authentication.getName(), subscriptionDto);
-            return ResponseEntity.ok("Abonnement réussi !");
+            return ResponseEntity.ok(new SubscriptionResponseDto("Abonnement réussi !"));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(new SubscriptionResponseDto(e.getMessage()));
         }
     }
 }
