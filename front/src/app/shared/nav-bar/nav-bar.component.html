@@ -9,7 +9,7 @@
     <div class="d-none d-md-flex ms-auto align-items-center">
       <a class="nav-link fs-4 fw-bold me-3" [ngClass]="{'purple': isActive('/posts'), 'text-secondary': !isActive('/posts')}" routerLink="/posts">Articles</a>
       <a class="nav-link fs-4 fw-bold me-3" [ngClass]="{'purple': isActive('/topics'), 'text-secondary': !isActive('/topics')}" routerLink="/topics">Thèmes</a>
-      <a class="nav-link" href="#">
+      <a class="nav-link" routerLink="/profile">
         <img src="/assets/default-user.png" alt="User" class="rounded-circle border border-secondary" width="50" height="50">
       </a>
     </div>
@@ -39,7 +39,9 @@
 
     <!-- Image User en bas -->
     <div class="mt-auto text-center">
+      <a routerLink="/profile">
       <img src="/assets/default-user.png" alt="User" class="rounded-circle border border-secondary" width="60" height="60">
+      </a>
       <p class="fs-5 mt-2">Mon profil</p>
     </div>
   </div>

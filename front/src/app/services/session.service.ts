@@ -4,6 +4,7 @@ import { User } from "../model/user.interface";
 import { HttpClient } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import {UserProfile} from "../model/user-profile";
 
 @Injectable({
   providedIn: 'root'
@@ -80,5 +81,9 @@ export class SessionService {
 
   private next(): void {
     this.isLoggedSubject.next(this.isLogged);
+  }
+
+  getUserProfile(): Observable<UserProfile> {
+    return this.httpClient.get<UserProfile>(`/api/user/profile`);
   }
 }

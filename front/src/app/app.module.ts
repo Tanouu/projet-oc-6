@@ -15,9 +15,10 @@ import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { PostsComponent } from './pages/posts/posts.component';
 import { PostDetailsComponent } from './pages/posts/post-details/post-details.component';
 import { CreatePostComponent } from './pages/posts/create-post/create-post.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, TopicsComponent, RegisterComponent, LoginComponent, NavBarComponent, PostsComponent, PostDetailsComponent, CreatePostComponent],
+  declarations: [AppComponent, HomeComponent, TopicsComponent, RegisterComponent, LoginComponent, NavBarComponent, PostsComponent, PostDetailsComponent, CreatePostComponent, ProfileComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

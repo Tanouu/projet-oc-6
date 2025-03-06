@@ -10,9 +10,15 @@
         <div class="card-body">
           <h1 class="card-title">{{ topic.name }}</h1>
           <p class="card-text text-muted">{{ topic.description }}</p>
-          <button class="btn purple text-white w-100" (click)="subscribeToTopic(topic.id)">
-            S’abonner
+
+          <!-- Bouton d'abonnement/désactivation -->
+          <button class="btn w-100"
+                  [ngClass]="isSubscribed(topic.id) ? 'btn-secondary' : 'purple text-white'"
+                  [disabled]="isSubscribed(topic.id)"
+                  (click)="subscribeToTopic(topic.id)">
+            {{ isSubscribed(topic.id) ? 'Déjà abonné' : 'S’abonner' }}
           </button>
+
         </div>
       </div>
     </div>
