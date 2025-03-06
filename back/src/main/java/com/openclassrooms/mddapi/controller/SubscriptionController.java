@@ -30,4 +30,19 @@ public class SubscriptionController {
             return ResponseEntity.badRequest().body(new SubscriptionResponseDto(e.getMessage()));
         }
     }
+
+    @DeleteMapping("/unsubscribe/{topicId}")
+    public ResponseEntity<String> unsubscribe(@PathVariable Long topicId, Authentication authentication) {
+        if (authentication == null || authentication.getName() == null) {
+            return ResponseEntity.status(401).body("Non autorisé");
+        }
+
+        try {
+            subscriptionService.unsubscribeFromTopic(authentication.getName(), topicId);
+            return ResponseEntity.ok("Désabonnement réussi !");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
 }

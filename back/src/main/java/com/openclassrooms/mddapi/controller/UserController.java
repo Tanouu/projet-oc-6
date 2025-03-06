@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.UserDto;
+import com.openclassrooms.mddapi.dto.UserProfileDto;
 import com.openclassrooms.mddapi.security.JwtGenerator;
 import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,4 +33,15 @@ public class UserController {
         UserDto userDto = userService.getUserDto(userService.findUserByEmail(email));
         return ResponseEntity.ok(userDto);
     }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfileDto> getUserFullProfile(Authentication authentication) {
+        if (authentication == null || authentication.getName() == null) {
+            return ResponseEntity.status(401).build();
+        }
+
+        UserProfileDto userProfile = userService.getUserProfile(authentication.getName());
+        return ResponseEntity.ok(userProfile);
+    }
+
 }

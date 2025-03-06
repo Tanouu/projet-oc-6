@@ -43,4 +43,18 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
         subscriptionRepository.save(subscription);
     }
+
+    @Override
+    public void unsubscribeFromTopic(String userEmail, Long topicId) {
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+        Topic topic = topicRepository.findById(topicId)
+                .orElseThrow(() -> new RuntimeException("Thème non trouvé"));
+
+        Subscription subscription = subscriptionRepository.findByUserAndTopic(user, topic)
+                .orElseThrow(() -> new RuntimeException("Abonnement non trouvé"));
+
+        subscriptionRepository.delete(subscription);
+    }
 }
