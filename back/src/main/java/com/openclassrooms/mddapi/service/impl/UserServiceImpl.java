@@ -3,12 +3,15 @@ package com.openclassrooms.mddapi.service.impl;
 import com.openclassrooms.mddapi.dto.TopicDto;
 import com.openclassrooms.mddapi.dto.UserDto;
 import com.openclassrooms.mddapi.dto.UserProfileDto;
+import com.openclassrooms.mddapi.dto.UserUpdateDto;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.SubscriptionRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository, SubscriptionRepository subscriptionRepository) {
@@ -55,5 +59,19 @@ public class UserServiceImpl implements UserService {
         return new UserProfileDto(user.getId(), user.getName(), user.getEmail(), subscriptions);
     }
 
+    @Override
+    public UserDto updateUser(String email, UserUpdateDto updateDto) {
+        User user = findUserByEmail(email);
 
+        user.setName(updateDto.getName());
+        user.setEmail(updateDto.getEmail());
+
+        // Met à jour le mot de passe uniquement s'il est fourni
+        if (updateDto.getPassword() != null && !updateDto.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
+        }
+
+        userRepository.save(user);
+        return getUserDto(user);
+    }
 }
