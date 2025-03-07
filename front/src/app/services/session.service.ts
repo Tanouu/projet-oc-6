@@ -82,8 +82,4 @@ export class SessionService {
   private next(): void {
     this.isLoggedSubject.next(this.isLogged);
   }
-
-  getUserProfile(): Observable<UserProfile> {
-    return this.httpClient.get<UserProfile>(`/api/user/profile`);
-  }
 }

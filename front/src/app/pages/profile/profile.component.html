@@ -1,32 +1,40 @@
 <app-nav-bar></app-nav-bar>
 
 <div class="container mt-5">
-  <!-- Profil utilisateur -->
-  <div class="text-center">
-    <h2 class="mb-4">Profil utilisateur</h2>
+  <h2 class="text-center">Profil utilisateur</h2>
 
-    <form (ngSubmit)="updateProfile()" class="d-flex flex-column gap-3 mx-auto" style="max-width: 400px;">
-      <input class="form-control" type="text" [(ngModel)]="userProfile.name" name="name" placeholder="Username" required>
-      <input class="form-control" type="email" [(ngModel)]="userProfile.email" name="email" placeholder="email@email.fr" required>
-      <input class="form-control" type="password" [(ngModel)]="userProfile.password" name="password" placeholder="Mot de passe">
+  <div class="card p-4 shadow-sm mt-4 text-center">
+    <form (ngSubmit)="saveProfile()" class="d-flex flex-column gap-3">
 
-      <button class="btn purple text-white w-100">Sauvegarder</button>
+      <input class="form-control" type="text" [(ngModel)]="userUpdate.name" name="name" placeholder="Nom" required />
+
+      <input class="form-control" type="email" [(ngModel)]="userUpdate.email" name="email" placeholder="Email" required />
+
+      <input class="form-control" type="password" [(ngModel)]="userUpdate.password" name="password" placeholder="Mot de passe (laisser vide pour ne pas changer)" />
+
+      <button class="btn purple w-auto px-4 mx-auto mt-2 d-block" type="submit" [disabled]="isUpdating">
+        Sauvegarder
+      </button>
     </form>
   </div>
 
-  <hr class="my-5">
+  <button class="btn btn-danger w-auto px-4 mx-auto mt-2 d-block" type="button" (click)="logout()">
+    Déconnexion
+  </button>
 
-  <!-- Abonnements -->
+  <hr />
+
   <h3 class="text-center">Abonnements</h3>
-
   <div class="row g-4 mt-3">
-    <div *ngFor="let topic of userProfile.subscriptions" class="col-12 col-sm-6">
-      <div class="card shadow-sm p-3">
+    <div *ngFor="let topic of userProfile?.subscriptions" class="col-12 col-md-6">
+      <div class="card shadow-sm p-3 text-center">
         <div class="card-body">
           <h4 class="card-title">{{ topic.name }}</h4>
           <p class="card-text text-muted">{{ topic.description }}</p>
 
-          <button class="btn btn-secondary w-100" (click)="unsubscribe(topic.id)">Se désabonner</button>
+          <button class="btn purple" (click)="unsubscribe(topic.id)">
+            Se désabonner
+          </button>
         </div>
       </div>
     </div>
