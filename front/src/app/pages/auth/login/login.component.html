@@ -2,14 +2,19 @@
 <div class="container d-flex flex-column align-items-center justify-content-center mt-5 text-center">
   <!-- Bouton retour -->
   <div class="w-100 d-flex justify-content-start">
-    <button class="btn" onclick="history.back()">
-     <h1>←</h1>
+    <button class="btn" (click)="goBack()">
+      <h1>←</h1>
     </button>
   </div>
 
   <!-- Formulaire -->
   <div class="w-100" style="max-width: 350px;">
     <h1 class="mb-3">Se connecter</h1>
+
+    <!-- Affichage du message d'erreur -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
 
     <form (submit)="onSubmit()">
       <div class="mb-3 text-start">

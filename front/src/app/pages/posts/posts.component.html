@@ -4,16 +4,18 @@
   <!-- Header avec "Créer un article" et "Trier par" -->
   <div class="d-flex justify-content-between align-items-center mb-3">
     <button class="btn purple text-white" routerLink="/create-post">Créer un article</button>
+    <!-- 🔥 Dropdown pour le tri -->
     <div class="dropdown">
       <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Trier par
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Date</a></li>
-        <li><a class="dropdown-item" href="#">Auteur</a></li>
+        <li><a class="dropdown-item" (click)="changeSorting('date')">Date</a></li>
+        <li><a class="dropdown-item" (click)="changeSorting('author')">Auteur</a></li>
       </ul>
     </div>
   </div>
+
 
   <!-- Affichage des articles en grid -->
   <div class="row">

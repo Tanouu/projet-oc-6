@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Topic} from "../../model/topic";
-import {TopicService} from "../../services/topic.service";
-import {Post} from "../../model/post";
-import {PostService} from "../../services/post.service";
-import {Router} from "@angular/router";
+import { PostService } from '../../services/post.service';
+import { Post } from '../../model/post';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-posts',
@@ -11,22 +9,36 @@ import {Router} from "@angular/router";
   styleUrls: ['./posts.component.scss']
 })
 export class PostsComponent implements OnInit {
-
   posts: Post[] = [];
   selectedPost: number | null = null;
-
-  constructor(private postService: PostService, private router: Router) {
-  }
+  sortBy: 'date' | 'author' = 'date';
+  constructor(private postService: PostService, private router: Router) {}
 
   ngOnInit(): void {
-    this.loadPosts()
+    this.loadPosts();
   }
 
   loadPosts(): void {
     this.postService.getPosts().subscribe({
-      next: (data) => this.posts = data,
-      error: (err) => console.error('Erreur lors du chargement des topics', err)
+      next: (data) => {
+        this.posts = data;
+        this.sortPosts();
+      },
+      error: (err) => console.error('Erreur lors du chargement des posts', err)
     });
+  }
+
+  sortPosts(): void {
+    if (this.sortBy === 'date') {
+      this.posts.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    } else if (this.sortBy === 'author') {
+      this.posts.sort((a, b) => a.userName.localeCompare(b.userName));
+    }
+  }
+
+  changeSorting(criteria: 'date' | 'author'): void {
+    this.sortBy = criteria;
+    this.sortPosts();
   }
 
   selectPost(postId: number): void {
