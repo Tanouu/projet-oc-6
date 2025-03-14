@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 
 @RestController
@@ -31,7 +32,7 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<JwtResponseDto> registerNewUser(@RequestBody RegisterDto registerDto) {
+  public ResponseEntity<JwtResponseDto> registerNewUser(@Valid @RequestBody RegisterDto registerDto) {
     registerDto.setPassword(passwordEncoder.encode(registerDto.getPassword()));
 
     User newUser = userService.registerNewUser(registerDto);
