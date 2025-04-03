@@ -106,13 +106,15 @@ describe('RegisterComponent', () => {
   });
 
   it('doit gérer une erreur d\'inscription et afficher un message d\'erreur', () => {
-    authServiceMock.register.mockReturnValue(throwError(() => new Error('Erreur d\'inscription')));
+    const error = { error: { message: 'Erreur serveur' } };
+
+    const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {}); // DOIT ÊTRE AVANT le onSubmit
+
+    authServiceMock.register.mockReturnValue(throwError(() => error));
 
     component.registerRequest.email = 'test@example.com';
     component.registerRequest.password = 'wrongpassword';
     component.registerRequest.name = 'John Doe';
-
-    jest.spyOn(console, 'error').mockImplementation(() => {}); // Évite d'afficher l'erreur dans la console pendant le test
 
     component.onSubmit();
     fixture.detectChanges();
@@ -123,6 +125,7 @@ describe('RegisterComponent', () => {
       name: 'John Doe'
     });
 
-    expect(console.error).toHaveBeenCalledWith('Erreur lors de l\'inscription', expect.any(Error));
+    expect(consoleSpy).toHaveBeenCalledWith('Erreur lors de l\'inscription', error);
+    expect(component.errorMessage).toBe('Erreur serveur');
   });
 });

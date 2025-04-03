@@ -71,7 +71,7 @@ describe('PostsComponent', () => {
 
     component.loadPosts();
 
-    expect(console.error).toHaveBeenCalledWith('Erreur lors du chargement des topics', expect.any(Error));
+    expect(console.error).toHaveBeenCalledWith('Erreur lors du chargement des posts', expect.any(Error));
   });
 
 });
