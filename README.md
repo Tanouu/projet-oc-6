@@ -63,6 +63,10 @@ cd front
 ```
 
 ```bash
+npm install
+```
+
+```bash
 ng serve --proxy-config proxy.conf.json
 ```
 
