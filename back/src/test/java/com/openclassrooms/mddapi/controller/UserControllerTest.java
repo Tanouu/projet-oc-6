@@ -69,16 +69,21 @@ class UserControllerTest {
     @Test
     void testUpdateProfile_shouldReturnUpdatedUserDto() throws Exception {
         String email = "ethan@mail.com";
-        UserUpdateDto updateDto = new UserUpdateDto("Ethan Modifié", email, "newpass");
-        UserDto updatedDto = new UserDto(1L, "Ethan Modifié", email);
 
+        // Payload JSON sans le champ "password"
+        String jsonPayloadSansMdp = "{"
+                + "\"name\": \"Ethan Modifié\","
+                + "\"email\": \"ethan@mail.com\""
+                + "}";
+
+        UserDto updatedDto = new UserDto(1L, "Ethan Modifié", email);
         when(userService.updateUser(eq(email), any(UserUpdateDto.class))).thenReturn(updatedDto);
 
         mockMvc.perform(put("/api/user/me")
                         .with(user(email).roles("USER"))
-                        .with(csrf()) // ✅ Ajouté ici
+                        .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updateDto)))
+                        .content(jsonPayloadSansMdp))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.name").value("Ethan Modifié"))

@@ -2,10 +2,16 @@ import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:4200',  // Assure-toi que ton serveur tourne sur ce port
     setupNodeEvents(on, config) {
-      // Tu peux ajouter d'autres événements ou configurations ici si nécessaire
-      // Par exemple, un événement pour enregistrer des logs, etc.
+      // tu peux ajouter des events si besoin ici
     },
+    baseUrl: 'http://localhost:4200'
   },
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/reports',
+    overwrite: false,
+    html: false,
+    json: true
+  }
 });

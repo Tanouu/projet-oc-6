@@ -7,10 +7,13 @@
     <form (ngSubmit)="saveProfile()" class="d-flex flex-column gap-3">
 
       <input class="form-control" type="text" [(ngModel)]="userUpdate.name" name="name" placeholder="Nom" required />
+      <div *ngIf="fieldErrors['name']" class="text-danger small">{{ fieldErrors['name'] }}</div>
 
       <input class="form-control" type="email" [(ngModel)]="userUpdate.email" name="email" placeholder="Email" required />
+      <div *ngIf="fieldErrors['email']" class="text-danger small">{{ fieldErrors['email'] }}</div>
 
       <input class="form-control" type="password" [(ngModel)]="userUpdate.password" name="password" placeholder="Mot de passe (laisser vide pour ne pas changer)" />
+      <div *ngIf="fieldErrors['password']" class="text-danger small">{{ fieldErrors['password'] }}</div>
 
       <button class="btn purple w-auto px-4 mx-auto mt-2 d-block" type="submit" [disabled]="isUpdating">
         Sauvegarder

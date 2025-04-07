@@ -84,12 +84,13 @@ describe('ProfileComponent', () => {
   it('doit mettre à jour le profil utilisateur', () => {
     component.userUpdate.name = 'UpdatedUser';
     component.userUpdate.email = 'updated@example.com';
+    component.userUpdate.password = ''; // champ vide
+
     component.saveProfile();
 
     expect(userServiceMock.updateProfile).toHaveBeenCalledWith({
       name: 'UpdatedUser',
-      email: 'updated@example.com',
-      password: ''
+      email: 'updated@example.com'
     });
 
     expect(sessionServiceMock.logIn).toHaveBeenCalled();

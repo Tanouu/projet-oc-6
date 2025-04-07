@@ -66,8 +66,15 @@ public class UserServiceImpl implements UserService {
         user.setName(updateDto.getName());
         user.setEmail(updateDto.getEmail());
 
-        // Met à jour le mot de passe uniquement s'il est fourni
-        if (updateDto.getPassword() != null && !updateDto.getPassword().isEmpty()) {
+        if (updateDto.getName() != null && !updateDto.getName().isBlank()) {
+            user.setName(updateDto.getName());
+        }
+
+        if (updateDto.getEmail() != null && !updateDto.getEmail().isBlank()) {
+            user.setEmail(updateDto.getEmail());
+        }
+
+        if (updateDto.getPassword() != null && !updateDto.getPassword().isBlank()) {
             user.setPassword(passwordEncoder.encode(updateDto.getPassword()));
         }
 

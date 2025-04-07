@@ -12,6 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -44,7 +46,7 @@ public class UserController {
     }
 
     @PutMapping("/me")
-    public ResponseEntity<UserDto> updateProfile(@RequestBody UserUpdateDto userUpdateDto, Authentication authentication) {
+    public ResponseEntity<UserDto> updateProfile(@Valid @RequestBody UserUpdateDto userUpdateDto, Authentication authentication) {
         if (authentication == null || authentication.getName() == null) {
             return ResponseEntity.status(401).build();
         }
@@ -53,5 +55,6 @@ public class UserController {
         UserDto updatedUser = userService.updateUser(email, userUpdateDto);
         return ResponseEntity.ok(updatedUser);
     }
+
 
 }

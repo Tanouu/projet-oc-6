@@ -126,6 +126,6 @@ describe('RegisterComponent', () => {
     });
 
     expect(consoleSpy).toHaveBeenCalledWith('Erreur lors de l\'inscription', error);
-    expect(component.errorMessage).toBe('Erreur serveur');
+    expect(component.errorMessage).toBe('Une erreur est survenue. Veuillez réessayer.');
   });
 });

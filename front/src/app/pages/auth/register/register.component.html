@@ -11,24 +11,34 @@
   <div class="w-100" style="max-width: 350px;">
     <h1 class="mb-3">Inscription</h1>
 
-    <!-- Affichage du message d'erreur -->
+    <!-- Message d'erreur général -->
     <div *ngIf="errorMessage" class="alert alert-danger">
       {{ errorMessage }}
     </div>
 
     <form (submit)="onSubmit()">
+      <!-- Champ E-mail -->
       <div class="mb-3 text-start">
         <label for="email" class="form-label">E-mail</label>
         <input type="email" class="form-control" id="email" [(ngModel)]="registerRequest.email" name="email" required>
+        <div *ngIf="fieldErrors['email']" class="text-danger small mt-1">{{ fieldErrors['email'] }}</div>
       </div>
+
+      <!-- Champ Mot de passe -->
       <div class="mb-3 text-start">
         <label for="password" class="form-label">Mot de passe</label>
         <input type="password" class="form-control" id="password" [(ngModel)]="registerRequest.password" name="password" required>
+        <div *ngIf="fieldErrors['password']" class="text-danger small mt-1">{{ fieldErrors['password'] }}</div>
       </div>
+
+      <!-- Champ Nom -->
       <div class="mb-3 text-start">
         <label for="name" class="form-label">Nom</label>
         <input type="text" class="form-control" id="name" [(ngModel)]="registerRequest.name" name="name" required>
+        <div *ngIf="fieldErrors['name']" class="text-danger small mt-1">{{ fieldErrors['name'] }}</div>
       </div>
+
+
       <button type="submit" class="btn purple w-50 text-white">S'inscrire</button>
     </form>
   </div>

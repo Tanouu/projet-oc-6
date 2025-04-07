@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   userProfile?: UserProfile; // Stocke le profil utilisateur
   userUpdate: UserUpdate = { name: '', email: '', password: '' };
   isUpdating = false; // Pour désactiver le bouton pendant l'envoi
+  fieldErrors: { [key: string]: string } = {};
 
   constructor(
     private userService: UserService,
@@ -54,20 +55,36 @@ export class ProfileComponent implements OnInit {
 
   saveProfile(): void {
     this.isUpdating = true;
-    this.userService.updateProfile(this.userUpdate).subscribe({
+    this.fieldErrors = {};
+
+    // Clone de l'objet pour ne pas modifier le `userUpdate` directement lié au formulaire
+    const updatePayload: any = { ...this.userUpdate };
+
+    // Si le champ password est vide, on le supprime de la requête
+    if (!updatePayload.password || updatePayload.password.trim() === '') {
+      delete updatePayload.password;
+    }
+
+    this.userService.updateProfile(updatePayload).subscribe({
       next: (updatedUser) => {
         this.userProfile = updatedUser;
-        this.sessionService.logIn(updatedUser); // Met à jour la session
+        this.sessionService.logIn(updatedUser);
         alert('Profil mis à jour avec succès !');
         this.isUpdating = false;
       },
       error: (err) => {
+        if (err.status === 400 && err.error) {
+          this.fieldErrors = err.error;
+        } else {
+          alert('Erreur lors de la mise à jour du profil.');
+        }
         console.error('Erreur mise à jour profil', err);
-        alert('Erreur lors de la mise à jour du profil.');
         this.isUpdating = false;
       },
     });
   }
+
+
 
   logout(): void {
     this.sessionService.logOut();

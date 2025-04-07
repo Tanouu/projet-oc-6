@@ -51,13 +51,18 @@ public class AuthController {
   public ResponseEntity<JwtResponseDto> loginUser(@RequestBody LoginDto loginData) {
     User user = userService.findUserByEmail(loginData.getEmail());
 
+    if (!passwordEncoder.matches(loginData.getPassword(), user.getPassword())) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
     UsernamePasswordAuthenticationToken authentication =
-      new UsernamePasswordAuthenticationToken(user.getEmail(), null, new ArrayList<>());
+            new UsernamePasswordAuthenticationToken(user.getEmail(), null, new ArrayList<>());
 
     final String jwt = jwtGenerator.generateToken(authentication);
 
     return ResponseEntity.ok(new JwtResponseDto(jwt));
   }
+
 
 }
 

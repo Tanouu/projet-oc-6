@@ -71,17 +71,23 @@ class AuthControllerTest {
 
     @Test
     void testLoginUser_shouldReturnJwtToken() throws Exception {
+        // Arrange
         LoginDto loginDto = new LoginDto("ethan@mail.com", "Password@123");
+
         User mockUser = new User();
         mockUser.setEmail("ethan@mail.com");
+        mockUser.setPassword("$2a$10$hashedPassword"); // simulé, encodé (bcrypt ou autre)
 
         when(authService.findUserByEmail("ethan@mail.com")).thenReturn(mockUser);
+        when(passwordEncoder.matches("Password@123", mockUser.getPassword())).thenReturn(true);
         when(jwtGenerator.generateToken(any())).thenReturn("mocked.jwt.token");
 
+        // Act & Assert
         mockMvc.perform(post("/api/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(loginDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").value("mocked.jwt.token"));
     }
+
 }
