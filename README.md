@@ -1,25 +1,76 @@
 # P6-Full-Stack-reseau-dev
 
-## Front
+## BDD
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+Create a database in postgresql
 
-Don't forget to install your node_modules before starting (`npm install`).
+# .env file
 
-### Development server
+Create a `.env` file in the root directory of your project (next to the README) and add the following environment variables:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```env
+DB_URL=jdbc:postgresql://localhost:5432/your_database_name
+DB_USERNAME=your_database_username
+DB_PASSWORD=your_database_password
 
-### Build
+# JWT secret key (must be secure and at least 256 bits)
+JWT_SECRET=your_very_secure_jwt_secret_key
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Here is an example of a JWT secret key:
 
-### Where to start
+```env
+JWT_SECRET=e0gkZlQ2Rkt3NGRzVG9qQlMzd3BwbklzQkt3RGtGcDJOSkd5TXNQU0pKa1plb2w3c2ViNHBLcDFvZ3NHOVpLMG1EVlFkQUc1RkpWVFhYTWd4YlpibE5jcUdPZ01rRzlURQ==
+```
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+# Back
+## Run the application
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+To run the application, launch the MddApiApplication class.
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
+```ini
+back/src/main/java/com/openclassrooms/mddapi/MddApiApplication.java
+```
 
-Good luck!
+This will start the Spring Boot application on port 8080.
+
+# Front
+
+## API Backend Configuration
+
+### Development
+
+The application uses a proxy (`proxy.conf.json`) to redirect `/api/*` requests to the backend API.
+
+To make it work, update the `proxy.conf.json` file:
+
+```json
+{
+  "/api": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "changeOrigin": true
+  }
+}
+```
+
+## Run the application
+
+To run the application, use the following command:
+
+```bash
+cd front 
+```
+
+```bash
+ng serve --proxy-config proxy.conf.json
+```
+
+This will start the Angular application on port 4200.
+You can access the application at `http://localhost:4200`.
+
+
+
+
+
+

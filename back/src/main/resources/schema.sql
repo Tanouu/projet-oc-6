@@ -44,12 +44,3 @@ CREATE TABLE IF NOT EXISTS public.subscriptions (
                                                     CONSTRAINT fk_subscriptions_topic FOREIGN KEY (topic_id) REFERENCES public.topics(id),
     CONSTRAINT fk_subscriptions_user FOREIGN KEY (user_id) REFERENCES public.users(id)
     );
-
--- Ajout de la relation ManyToMany entre Users et Topics
-CREATE TABLE IF NOT EXISTS public.user_topics (
-                                                  user_id BIGINT NOT NULL,
-                                                  topic_id BIGINT NOT NULL,
-                                                  PRIMARY KEY (user_id, topic_id),
-    CONSTRAINT fk_user_topics_user FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_user_topics_topic FOREIGN KEY (topic_id) REFERENCES public.topics(id) ON DELETE CASCADE
-    );
