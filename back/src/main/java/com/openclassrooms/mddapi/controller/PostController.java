@@ -25,13 +25,13 @@ public class PostController {
         return postService.getAllPosts();
     }
 
-    @PostMapping("/details")
-    public ResponseEntity<PostDtoDetails> getPostDetails(@RequestBody PostIdRequest request) {
-        PostDtoDetails postDetails = postService.getPostDetailsById(request.getPostId());
+    @GetMapping("/details/{id}")
+    public ResponseEntity<PostDtoDetails> getPostDetails(@PathVariable Long id) {
+        PostDtoDetails postDetails = postService.getPostDetailsById(id);
         return postDetails != null ? ResponseEntity.ok(postDetails) : ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<PostDto> createPost(@RequestBody CreatePostDto createPostDto, Authentication authentication) {
         if (authentication == null || authentication.getName() == null) {
             return ResponseEntity.status(401).build();

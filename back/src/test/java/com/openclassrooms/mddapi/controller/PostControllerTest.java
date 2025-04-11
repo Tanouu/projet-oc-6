@@ -52,9 +52,6 @@ class PostControllerTest {
 
     @Test
     void testGetPostDetails_shouldReturnPostDetails() throws Exception {
-        PostIdRequest request = new PostIdRequest();
-        request.setPostId(1L);
-
         PostDtoDetails postDetails = new PostDtoDetails(
                 1L,
                 "Post Titre",
@@ -67,11 +64,8 @@ class PostControllerTest {
 
         when(postService.getPostDetailsById(1L)).thenReturn(postDetails);
 
-        mockMvc.perform(post("/api/posts/details")
-                        .with(user("ethan@mail.com").roles("USER")) // 🔐 utilisateur simulé
-                        .with(csrf()) // ✅ ajoute token CSRF
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(request)))
+        mockMvc.perform(get("/api/posts/details/1")
+                        .with(user("ethan@mail.com").roles("USER")))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("Post Titre"))
                 .andExpect(jsonPath("$.topicName").value("Développement"));
@@ -87,7 +81,7 @@ class PostControllerTest {
         when(postService.addPost(any(CreatePostDto.class), eq(email)))
                 .thenReturn(expectedPostDto);
 
-        mockMvc.perform(post("/api/posts/create")
+        mockMvc.perform(post("/api/posts")
                         .with(user(email).roles("USER")) // 🔐 utilisateur simulé
                         .with(csrf()) // ✅ token CSRF obligatoire
                         .contentType(MediaType.APPLICATION_JSON)

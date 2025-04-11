@@ -43,7 +43,7 @@ describe('PostService', () => {
     req.flush(mockPosts);
   });
 
-  it('devrait récupérer les détails d’un post avec POST', () => {
+  it('devrait récupérer les détails d’un post avec GET', () => {
     const mockPostDetails: PostDetails = {
       id: 1,
       title: 'Post 1',
@@ -58,9 +58,9 @@ describe('PostService', () => {
       expect(details).toEqual(mockPostDetails);
     });
 
-    const req = httpMock.expectOne('/api/posts/details');
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ postId: 1 });
+    const req = httpMock.expectOne('/api/posts/details/1'); // ✅ URL avec l'ID
+    expect(req.request.method).toBe('GET'); // ✅ GET au lieu de POST
+    expect(req.request.body).toBeNull(); // ✅ pas de body pour un GET
     req.flush(mockPostDetails);
   });
 
@@ -71,7 +71,7 @@ describe('PostService', () => {
       expect(response).toEqual({ success: true });
     });
 
-    const req = httpMock.expectOne('/api/posts/create');
+    const req = httpMock.expectOne('/api/posts');
     expect(req.request.method).toBe('POST');
     expect(req.request.body).toEqual(newPost);
     req.flush({ success: true });

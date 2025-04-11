@@ -20,10 +20,10 @@ export class PostService {
   }
 
   getPostDetails(postId: number): Observable<PostDetails> {
-    return this.http.post<PostDetails>(`${this.apiUrl}/details`, { postId });
+    return this.http.get<PostDetails>(`${this.apiUrl}/details/${postId}`);
   }
 
   createPost(post: PostForm): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create`, post);
+    return this.http.post<any>(`${this.apiUrl}`, post);
   }
 }

@@ -35,7 +35,7 @@ describe('Post Details Component Tests', () => {
     }).as('getPosts');
 
     // Mock des détails du post (Post 2)
-    cy.intercept('POST', '/api/posts/details', {
+    cy.intercept('GET', '/api/posts/details/2', {
       statusCode: 200,
       body: {
         id: 2,
@@ -50,6 +50,7 @@ describe('Post Details Component Tests', () => {
         ],
       },
     }).as('getPostDetails');
+
 
     // Se connecter et visiter la page des topics
     cy.visit('/login');
@@ -92,25 +93,4 @@ describe('Post Details Component Tests', () => {
     cy.get('.list-group-item').should('contain.text', 'Great post!');
     cy.get('.list-group-item').should('contain.text', 'Very informative!');
   });
-
-  // it('should allow adding a new comment', () => {
-  //   const newCommentContent = 'Awesome post!';
-  //
-  //   // Tape le contenu dans l'input
-  //   cy.get('input')
-  //     .type(newCommentContent)
-  //     .should('have.value', newCommentContent);
-  //
-  //   // Simulez le clic sur le bouton "Envoyer"
-  //   cy.get('button.btn.btn-primary').click();
-  //
-  //   // Attendre que l'API retourne une réponse
-  //   cy.wait('@addComment'); // Assurez-vous d'avoir un intercept pour l'ajout de commentaire
-  //
-  //   // Vérifier que l'input est maintenant vide après l'envoi du commentaire
-  //   cy.get('input').clear().should('have.value', '');
-  //
-  //   // Vérifier que le commentaire est bien ajouté à la liste des commentaires
-  //   cy.get('.list-group-item').last().should('contain.text', newCommentContent);
-  // });
 });
