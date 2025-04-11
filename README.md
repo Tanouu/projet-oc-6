@@ -67,7 +67,7 @@ npm install
 ```
 
 ```bash
-ng serve --proxy-config proxy.conf.json
+ng serve
 ```
 
 This will start the Angular application on port 4200.
